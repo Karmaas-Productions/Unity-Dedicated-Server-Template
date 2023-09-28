@@ -6,8 +6,8 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs: 
-  buildLinux:
-    name: Build for Linux
+  buildDedicatedLinuxServer:
+    name: Build for Dedicated Linux Server
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: Library
-          key: Library-Linux
+          key: Library-DedicatedLinuxServer
           restore-keys: Library-
 
       - name: Create LFS file list
@@ -41,8 +41,9 @@ jobs:
         with:
           targetPlatform: StandaloneLinux64
           versioning: Semantic
+          customParameters: -standaloneBuildSubtarget Server
 
       - uses: actions/upload-artifact@v3
         with:
-          name: build-StandaloneLinux64
-          path: build/StandaloneLinux64
+          name: build-DedicatedLinuxServer
+          path: build/DedicatedLinuxServer
