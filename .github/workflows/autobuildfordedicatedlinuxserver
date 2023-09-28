@@ -1,0 +1,48 @@
+name: Build Game for Dedicated Linux Server 🛜
+
+on: workflow_dispatch
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs: 
+  buildLinux:
+    name: Build for Linux
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-Linux
+          restore-keys: Library-
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v3
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - uses: game-ci/unity-builder@v3
+        with:
+          targetPlatform: StandaloneLinux64
+          versioning: Semantic
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
