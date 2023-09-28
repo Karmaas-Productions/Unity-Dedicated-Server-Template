@@ -1,4 +1,4 @@
-name: Build Game for Windows 🎮
+name: Build Game for Dedicated Linux Server 🛜
 
 on: workflow_dispatch
 
@@ -6,8 +6,8 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs: 
-  buildWindows:
-    name: Build for Windows
+  buildDedicatedLinuxServer:
+    name: Build for Dedicated Linux Server
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: Library
-          key: Library-Windows
+          key: Library-DedicatedLinuxServer
           restore-keys: Library-
 
       - name: Create LFS file list
@@ -39,10 +39,11 @@ jobs:
 
       - uses: game-ci/unity-builder@v3
         with:
-          targetPlatform: StandaloneWindows64
+          targetPlatform: StandaloneLinux64
           versioning: Semantic
+          customParameters: -standaloneBuildSubtarget Server
 
       - uses: actions/upload-artifact@v3
         with:
-          name: build-StandaloneWindows64
-          path: build/StandaloneWindows64
+          name: build-DedicatedLinuxServer
+          path: build/DedicatedLinuxServer

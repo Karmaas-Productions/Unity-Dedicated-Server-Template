@@ -7,19 +7,25 @@ env:
 
 jobs: 
   buildLinux:
-    name: Build for Linux 🖥️
+    name: Build for Linux
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-Linux
+          restore-keys: Library-
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -31,19 +37,12 @@ jobs:
           git add .
           git reset --hard
 
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v3
         with:
           targetPlatform: StandaloneLinux64
+          versioning: Semantic
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-StandaloneLinux64
           path: build/StandaloneLinux64
-
-  
-          targetPlatform: Android
- 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build-Android
-          path: build/Android

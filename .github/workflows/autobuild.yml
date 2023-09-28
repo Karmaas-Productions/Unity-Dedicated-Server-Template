@@ -13,13 +13,19 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-WebGL
+          restore-keys: Library-
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -31,12 +37,13 @@ jobs:
           git add .
           git reset --hard
 
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v3
         with:
           targetPlatform: WebGL
           allowDirtyBuild: true
+          versioning: Semantic
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-WebGL
           path: build/WebGL
@@ -48,13 +55,19 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-Windows
+          restore-keys: Library-
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -66,11 +79,12 @@ jobs:
           git add .
           git reset --hard
 
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v3
         with:
           targetPlatform: StandaloneWindows64
+          versioning: Semantic
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
@@ -82,13 +96,19 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-macOS
+          restore-keys: Library-
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -100,11 +120,12 @@ jobs:
           git add .
           git reset --hard
 
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v3
         with:
           targetPlatform: StandaloneOSX
+          versioning: Semantic
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-StandaloneOSX
           path: build/StandaloneOSX
@@ -116,13 +137,19 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-Linux
+          restore-keys: Library-
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -134,98 +161,37 @@ jobs:
           git add .
           git reset --hard
 
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v3
         with:
           targetPlatform: StandaloneLinux64
+          versioning: Semantic
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-StandaloneLinux64
           path: build/StandaloneLinux64
 
-  buildAndroid:
-    name: Build for Android
+
+  buildDedicatedLinuxServer:
+    name: Build for Dedicated Linux Server
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
- 
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
- 
-      - name: Restore LFS cache
-        uses: actions/cache@v2
-        id: lfs-cache
+        uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
         with:
-          path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
- 
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Free Disk Space for Android
-        run: |
-          sudo swapoff -a
-          sudo rm -f /swapfile
-          sudo apt clean
-          docker rmi $(docker image ls -aq)
-          df -h
-          # Before
-          echo "Disk space before:"
-          df -h
-
-          #echo "Listing 100 largest packages"
-          #dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -n | tail -n 100
-          #echo "Removing large packages"
-          #sudo apt-get remove -y '^ghc-8.*'
-          #sudo apt-get remove -y '^dotnet-.*'
-          #sudo apt-get remove -y '^llvm-.*'
-          #sudo apt-get remove -y 'php.*'
-          #sudo apt-get remove -y azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
-          #sudo apt-get autoremove -y
-          #sudo apt-get clean
-          #df -h
-
-          echo "Removing large directories"
-          # https://github.com/apache/flink/blob/master/tools/azure-pipelines/free_disk_space.sh
-          rm -rf /usr/share/dotnet/
-
-          # https://github.com/actions/virtual-environments/issues/709#issuecomment-612569242
-          rm -rf "/usr/local/share/boost"
-          rm -rf "$AGENT_TOOLSDIRECTORY"
-
-          # After
-          echo "Disk space after:"
-           df -h
- 
-      - uses: game-ci/unity-builder@v2
-        with:
-          targetPlatform: Android
- 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build-Android
-          path: build/Android
-
-  buildiOS:
-    name: Build for iOS
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+          path: Library
+          key: Library-DedicatedLinuxServer
+          restore-keys: Library-
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -237,24 +203,27 @@ jobs:
           git add .
           git reset --hard
 
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v3
         with:
-          targetPlatform: iOS
+          targetPlatform: StandaloneLinux64
+          versioning: Semantic
+          customParameters: -standaloneBuildSubtarget Server
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
-          name: build-iOS
-          path: build/iOS
-          
+          name: build-DedicatedLinuxServer
+          path: build/DedicatedLinuxServer
+
+
   deployPages:
     needs: buildWebGL
     name: Deploy to Github Pages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: build-WebGL
           path: build
