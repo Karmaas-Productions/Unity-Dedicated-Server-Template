@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 2fc74e8cb0c7d944f827b666f440ee64
+timeCreated: 1512901854
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/RacingFolder/Scripts/WaypointRenderer.cs
+  uploadId: 283088

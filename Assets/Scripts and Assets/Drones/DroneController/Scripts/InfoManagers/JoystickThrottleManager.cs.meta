@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: e53340d41179529429690e478e7ac009
+timeCreated: 1525001108
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/DroneController2.0/Scripts/InfoManagers/JoystickThrottleManager.cs
+  uploadId: 283088

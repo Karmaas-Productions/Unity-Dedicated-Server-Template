@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1d4d5b075c25ae447bc51fe0a9f274e5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/FlightRecorder/Plugin/FlightRecorderPlayback.cs
+  uploadId: 283088

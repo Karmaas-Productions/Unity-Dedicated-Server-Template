@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 72a703fce876c7542a11353e8edd9d52
+timeCreated: 1512668494
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/RacingFolder/Editor/TrackManagerBuilder.cs
+  uploadId: 283088

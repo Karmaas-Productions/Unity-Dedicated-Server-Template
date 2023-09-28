@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: fdea4f5d46648b24f90c25d24f2d6e92
+timeCreated: 1516467125
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/DroneController2.0/Plugins/DroneController/CameraScript.cs
+  uploadId: 283088

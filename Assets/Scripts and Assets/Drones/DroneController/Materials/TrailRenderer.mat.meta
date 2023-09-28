@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5bd9a5810d630b9409aa6d3fb901c719
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/DroneController2.0/Materials/TrailRenderer.mat
+  uploadId: 283088

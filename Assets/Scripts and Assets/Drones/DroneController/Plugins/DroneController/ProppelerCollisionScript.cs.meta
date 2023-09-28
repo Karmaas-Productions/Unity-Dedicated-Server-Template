@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: d259b00a45148dc42901b573821ca567
+timeCreated: 1527270244
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/DroneController2.0/Plugins/DroneController/ProppelerCollisionScript.cs
+  uploadId: 283088

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c8879ffb6f963c841a8af402e9c079ab
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/DroneController2.0/Scripts/ShowoffCamera.cs
+  uploadId: 283088

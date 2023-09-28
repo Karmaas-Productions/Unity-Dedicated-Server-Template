@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: bd389a4d44d4a9f45afacbd5ade16321
+timeCreated: 1515930892
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 118390
+  packageName: FPV Drone Controller
+  packageVersion: 1.4
+  assetPath: Assets/Drones/DroneController2.0/Models/Drone_racing/Materials/RacingDrone.mat
+  uploadId: 283088
