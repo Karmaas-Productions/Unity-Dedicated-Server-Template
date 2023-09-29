@@ -212,7 +212,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: build-DedicatedLinuxServer
-          path: build/DedicatedLinuxServer
+          path: build/StandaloneLinux64
 
 
   deployPages:
