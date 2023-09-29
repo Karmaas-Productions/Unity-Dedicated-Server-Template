@@ -34,6 +34,8 @@ public class CharacterSelectReady : NetworkBehaviour {
         playerReadyDictionary = new Dictionary<ulong, bool>();
 
         OnInstanceCreated?.Invoke(this, EventArgs.Empty);
+
+        Debug.Log("On Character Select Screen");
     }
 
     private async void Start() {
@@ -71,7 +73,7 @@ public class CharacterSelectReady : NetworkBehaviour {
         if (allClientsReady) {
             OnGameStarting?.Invoke(this, EventArgs.Empty);
             KitchenGameLobby.Instance.DeleteLobby();
-            Loader.LoadNetwork(Loader.Scene.GameScene);
+            Loader.LoadNetwork(Loader.Scene.Map1);
         }
     }
 

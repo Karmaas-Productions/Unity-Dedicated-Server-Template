@@ -175,6 +175,8 @@ public class KitchenGameLobby : MonoBehaviour {
 
         KitchenGameMultiplayer.Instance.StartServer();
         Loader.LoadNetwork(Loader.Scene.CharacterSelectScene);
+
+        Debug.Log("Started Server");
     }
 
     private async void SetupBackfillTickets() {

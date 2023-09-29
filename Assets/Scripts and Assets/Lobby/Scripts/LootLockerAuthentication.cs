@@ -5,7 +5,7 @@ using LootLocker.Requests;
 using TMPro;
 
 public class LootLockerAuthentication : MonoBehaviour
-{
+{   
     public TMP_InputField logInEmailInputField;
     public TMP_InputField logInPasswordInputField;
 
@@ -49,9 +49,25 @@ public class LootLockerAuthentication : MonoBehaviour
 
     private string resetEmail = "Enter your email...";
 
+    private bool canStart = true;
+
     private void Start()
     {
 
+#if DEDICATED_SERVER
+        Authentication.SetActive(false);
+
+        canStart = false;
+#endif
+
+        if (canStart == true)
+        {
+            StartFunctions();
+        }
+    }
+
+    public void StartFunctions()
+    {
         Debug.developerConsoleVisible = true;
 
         // Load saved email and password from PlayerPrefs

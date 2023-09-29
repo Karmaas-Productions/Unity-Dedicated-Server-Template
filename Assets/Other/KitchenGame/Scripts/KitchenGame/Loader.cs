@@ -13,6 +13,7 @@ public static class Loader {
         LoadingScene,
         LobbyScene,
         CharacterSelectScene,
+        Map1,
     }
 
 

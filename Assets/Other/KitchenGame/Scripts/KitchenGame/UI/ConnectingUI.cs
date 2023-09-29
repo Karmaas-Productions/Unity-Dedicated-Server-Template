@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConnectingUI : MonoBehaviour {
 
-
+    public GameObject MatchMakerLooingForUI;
 
     private void Start() {
         KitchenGameMultiplayer.Instance.OnTryingToJoinGame += KitchenGameMultiplayer_OnTryingToJoinGame;
@@ -15,10 +15,12 @@ public class ConnectingUI : MonoBehaviour {
 
     private void KitchenGameManager_OnFailedToJoinGame(object sender, System.EventArgs e) {
         Hide();
+        MatchMakerLooingForUI.SetActive(false);
     }
 
     private void KitchenGameMultiplayer_OnTryingToJoinGame(object sender, System.EventArgs e) {
         Show();
+        MatchMakerLooingForUI.SetActive(false);
     }
 
     private void Show() {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Services.Authentication;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,8 @@ public class KitchenGameMultiplayer : NetworkBehaviour {
 
     public static bool playMultiplayer = true;
 
+    public GameObject lobby;
+
 
     public event EventHandler OnTryingToJoinGame;
     public event EventHandler OnFailedToJoinGame;
@@ -32,12 +35,12 @@ public class KitchenGameMultiplayer : NetworkBehaviour {
     private string playerName;
 
 
-
     private void Awake() {
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
 
+        // Player Name Here!!!!
         playerName = PlayerPrefs.GetString(PLAYER_PREFS_PLAYER_NAME_MULTIPLAYER, "PlayerName" + UnityEngine.Random.Range(100, 1000));
 
         playerDataNetworkList = new NetworkList<PlayerData>();
@@ -50,6 +53,10 @@ public class KitchenGameMultiplayer : NetworkBehaviour {
             StartHost();
             Loader.LoadNetwork(Loader.Scene.GameScene);
         }
+
+#if DEDICATED_SERVER
+        lobby.SetActive(true);
+#endif
     }
 
     public string GetPlayerName() {
