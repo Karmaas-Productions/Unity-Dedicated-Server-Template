@@ -1,27 +1,13 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using Unity.Services.Multiplay;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class GameManager : NetworkBehaviour
+public class PlayerSpawnManager : NetworkBehaviour
 {
-    [SerializeField] private Transform playerPrefab;
+    public GameObject playerPrefab;
 
-    private async void Start()
-    {
-
-/*
-#if DEDICATED_SERVER
-
-        await MultiplayService.Instance.UnreadyServerAsync();
-        
-        Camera.main.enabled = false;
-#endif
-*/
-
-    }
+    public Transform initialSpawnPoint;
 
     public override void OnNetworkSpawn()
     {
@@ -35,8 +21,10 @@ public class GameManager : NetworkBehaviour
     {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
-            Transform playerTransform = Instantiate(playerPrefab);
-            playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+            GameObject player = Instantiate(playerPrefab, initialSpawnPoint.position, initialSpawnPoint.rotation);
+            player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+
+            Debug.Log("Spawned Player");
         }
     }
-}
+} 

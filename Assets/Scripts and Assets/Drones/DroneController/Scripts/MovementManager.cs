@@ -6,6 +6,8 @@ using Unity.Netcode;
 
 public class MovementManager : NetworkBehaviour
 {
+#if !DEDICATED_SERVER
+
     public GameObject UI;
     public GameObject droneGameObject;
 
@@ -15,14 +17,8 @@ public class MovementManager : NetworkBehaviour
         {
             UI.SetActive(false);
 
-            if (droneGameObject != null)
-            {
-                DroneMovement droneMovementScript = droneGameObject.GetComponent<DroneMovement>();
-                if (droneMovementScript != null)
-                {
-                    droneMovementScript.enabled = false;
-                }
-            }
+            DroneMovement droneMovementScript = droneGameObject.GetComponent<DroneMovement>();
+            droneMovementScript.enabled = false;
         }
 
         if (droneGameObject != null)
@@ -44,4 +40,6 @@ public class MovementManager : NetworkBehaviour
             Debug.LogError("Target GameObject is not assigned.");
         }
     }
+
+#endif
 }

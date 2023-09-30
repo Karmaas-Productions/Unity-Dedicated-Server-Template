@@ -51,6 +51,11 @@ public class LootLockerAuthentication : MonoBehaviour
 
     private bool canStart = true;
 
+    public void ClearPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
     private void Start()
     {
 
