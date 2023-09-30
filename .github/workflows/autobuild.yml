@@ -6,48 +6,6 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs: 
-  buildWebGL:
-    name: Build for WebGL
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - uses: actions/cache@v3
-        with:
-          path: Library
-          key: Library-WebGL
-          restore-keys: Library-
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Restore LFS cache
-        uses: actions/cache@v3
-        id: lfs-cache
-        with:
-          path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - uses: game-ci/unity-builder@v3
-        with:
-          targetPlatform: WebGL
-          allowDirtyBuild: true
-          versioning: Semantic
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build-WebGL
-          path: build/WebGL
-
   buildWindows:
     name: Build for Windows
     runs-on: ubuntu-latest
@@ -212,24 +170,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: build-DedicatedLinuxServer
-          path: build/DedicatedLinuxServer
-
-
-  deployPages:
-    needs: buildWebGL
-    name: Deploy to Github Pages
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: build-WebGL
-          path: build
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages
-          folder: build/WebGL
+          path: build/StandaloneLinux64
