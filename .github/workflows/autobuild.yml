@@ -169,5 +169,5 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: build-DedicatedLinuxServer
+          name: build-DedicatedLinuxServer.x86_64
           path: build/StandaloneLinux64
