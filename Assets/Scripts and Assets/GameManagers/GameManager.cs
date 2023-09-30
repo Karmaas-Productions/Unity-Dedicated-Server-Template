@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Networking;
+using Unity.Services.Multiplay;
 
 public class PlayerSpawnManager : NetworkBehaviour
 {
@@ -9,11 +10,14 @@ public class PlayerSpawnManager : NetworkBehaviour
 
     public Transform initialSpawnPoint;
 
-    public override void OnNetworkSpawn()
+    private async void Start()
     {
         if (IsServer)
         {
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
+#if DEDICATED_SERVER
+            await MultiplayService.Instance.UnreadyServerAsync();
+#endif
         }
     }
 
